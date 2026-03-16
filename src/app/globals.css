@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
-:root {
-	--background: #ffffff;
-	--foreground: #171717;
+@theme {
+  --font-hind: var(--font-hind);
+  --font-inter: var(--font-inter);
+  --color-slate-850: #141b2d;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+  --color-gold-400: #facc15;
+  --color-gold-500: #eab308;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-indigo-500: #6366f1;
+  --color-purple-500: #a855f7;
 }
 
-@theme inline {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
-	--font-sans: var(--font-geist-sans);
-	--font-mono: var(--font-geist-mono);
+@layer base {
+  body {
+    background-color: var(--color-slate-950);
+    color: #f8fafc;
+    font-family: var(--font-hind), sans-serif;
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
+@layer utilities {
+  .glass {
+    @apply bg-slate-900/50 backdrop-blur-md border border-slate-800/50 shadow-xl;
+  }
+  
+  .glass-card {
+    @apply bg-slate-800/30 backdrop-blur-lg border border-slate-700/50 rounded-2xl shadow-2xl;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400;
+  }
+  .text-gradient-gold {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-yellow-500;
+  }
 }
 
-body {
-	background: var(--background);
-	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
 }
