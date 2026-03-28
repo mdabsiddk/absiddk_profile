@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Facebook, Instagram, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Send, Linkedin } from "lucide-react";
 
 export default function ContactSection() {
   const contactInfo = [
@@ -26,6 +26,7 @@ export default function ContactSection() {
   ];
 
   const socialLinks = [
+    { icon: <Linkedin size={24} />, name: "LinkedIn", href: "https://www.linkedin.com/in/absiddk", color: "bg-blue-700 hover:bg-blue-600" },
     { icon: <Facebook size={24} />, name: "Facebook", href: "https://www.facebook.com/mdabubakarpage/", color: "bg-blue-600 hover:bg-blue-500" },
     { icon: <Instagram size={24} />, name: "Instagram", href: "https://www.instagram.com/a.siddk", color: "bg-pink-600 hover:bg-pink-500" },
   ];

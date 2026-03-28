@@ -1,4 +1,23 @@
 # Next.js Framework Starter
+ফাইল কাঠামো
+
+portfolio/
+├── app/
+│   ├── layout.tsx          ← মেটাডেটা, ফন্ট, থিম
+│   ├── page.tsx            ← সব সেকশন একত্রিত
+│   └── globals.css         ← CSS ভেরিয়েবল, অ্যানিমেশন
+├── components/
+│   ├── Navbar.tsx
+│   ├── HeroSection.tsx
+│   ├── AboutSection.tsx
+│   ├── SkillsSection.tsx
+│   ├── ExperienceSection.tsx
+│   ├── LanguagesSection.tsx
+│   ├── InterestsSection.tsx
+│   ├── PhilosophySection.tsx
+│   └── ContactSection.tsx
+└── public/
+    └── (assets)
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/next-starter-template)
 
