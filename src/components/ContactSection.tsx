@@ -6,37 +6,74 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Send, Linkedin } from "lucide
 export default function ContactSection() {
   const contactInfo = [
     {
-      icon: <Mail className="text-blue-400" size={24} />,
+      icon: <Mail className="text-blue-400" size={22} />,
       title: "ইমেইল",
       value: "mdabsiddk2331@gmail.com",
-      link: "mailto:mdabsiddk2331@gmail.com"
+      link: "mailto:mdabsiddk2331@gmail.com",
+      glowClass: "card-glow-blue",
+      accentColor: "#3b82f6",
     },
     {
-      icon: <Phone className="text-emerald-400" size={24} />,
+      icon: <Phone className="text-emerald-400" size={22} />,
       title: "ফোন নম্বর",
       value: "+8801519005033",
-      link: "tel:+8801519005033"
+      link: "tel:+8801519005033",
+      glowClass: "card-glow-green",
+      accentColor: "#10b981",
     },
     {
-      icon: <MapPin className="text-red-400" size={24} />,
+      icon: <MapPin className="text-red-400" size={22} />,
       title: "বর্তমান অবস্থান",
       value: "ঢাকা, বাংলাদেশ",
-      link: "https://maps.google.com/?q=Dhaka,Bangladesh"
-    }
+      link: "https://maps.google.com/?q=Dhaka,Bangladesh",
+      glowClass: "card-glow-red",
+      accentColor: "#ef4444",
+    },
   ];
 
   const socialLinks = [
-    { icon: <Linkedin size={24} />, name: "LinkedIn", href: "https://www.linkedin.com/in/absiddk", color: "bg-blue-700 hover:bg-blue-600" },
-    { icon: <Facebook size={24} />, name: "Facebook", href: "https://www.facebook.com/mdabubakarpage/", color: "bg-blue-600 hover:bg-blue-500" },
-    { icon: <Instagram size={24} />, name: "Instagram", href: "https://www.instagram.com/a.siddk", color: "bg-pink-600 hover:bg-pink-500" },
+    {
+      icon: <Linkedin size={22} />,
+      name: "LinkedIn",
+      href: "https://www.linkedin.com/in/absiddk",
+      bg: "linear-gradient(135deg,#0a66c2,#0077b5)",
+      glow: "rgba(10,102,194,0.6)",
+    },
+    {
+      icon: <Facebook size={22} />,
+      name: "Facebook",
+      href: "https://www.facebook.com/mdabubakarpage/",
+      bg: "linear-gradient(135deg,#1877f2,#166fe5)",
+      glow: "rgba(24,119,242,0.6)",
+    },
+    {
+      icon: <Instagram size={22} />,
+      name: "Instagram",
+      href: "https://www.instagram.com/a.siddk",
+      bg: "linear-gradient(135deg,#e1306c,#c13584,#833ab4)",
+      glow: "rgba(225,48,108,0.55)",
+    },
   ];
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden bg-slate-900/80">
-      <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
-      <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-indigo-600/10 rounded-full blur-[100px] -z-10" />
+    <section id="contact" className="py-24 relative overflow-hidden">
+      {/* top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
+      <div className="blob-purple" style={{ bottom: "15%", left: "0" }} />
+      <div className="blob-blue"   style={{ top: "15%", right: "0"  }} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* grid bg */}
+      <div
+        className="absolute inset-0 -z-10 opacity-[0.025]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(99,102,241,1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(99,102,241,1) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -44,117 +81,162 @@ export default function ContactSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 flex items-center justify-center gap-3">
-            <Send className="text-blue-400" size={40} />
-            <span className="text-gradient">যোগাযোগ করুন</span>
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto rounded-full" />
+          <div className="inline-flex items-center gap-3 mb-5">
+            <div className="icon-box p-3">
+              <Send className="text-blue-400" size={28} />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient">যোগাযোগ করুন</h2>
+          </div>
+          <div className="w-24 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto rounded-full shadow-[0_0_12px_rgba(99,102,241,0.6)]" />
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Contact Details */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
+          {/* Left – contact info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="space-y-8"
+            className="space-y-5"
           >
-            <h3 className="text-2xl font-semibold mb-6 text-slate-200">আমার সাথে কথা বলুন</h3>
-            <p className="text-slate-400 mb-8 leading-relaxed">
-              সফটওয়্যার রিকয়ারমেন্টস অ্যানালিসিস, কনটেন্ট ক্রিয়েশন বা যে কোনো দরকারে আমার সাথে যোগাযোগ করতে পারেন। 
-              নিচের মাধ্যমগুলোতে আমি সবসময় সচল থাকি।
+            <h3 className="text-2xl font-semibold text-slate-200 mb-2">আমার সাথে কথা বলুন</h3>
+            <p className="text-slate-400 leading-relaxed mb-8">
+              সফটওয়্যার রিকয়ারমেন্টস অ্যানালিসিস, কনটেন্ট ক্রিয়েশন বা যে কোনো দরকারে আমার সাথে যোগাযোগ করতে পারেন।
+              নিচের মাধ্যমগুলোতে আমি সবসময় সচল থাকি।
             </p>
 
-            <div className="space-y-6">
-              {contactInfo.map((info, index) => (
-                <a 
-                  key={index} 
-                  href={info.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-6 p-4 rounded-2xl glass hover:bg-slate-800/80 transition-colors group cursor-pointer"
-                >
-                  <div className="p-4 bg-slate-800/80 rounded-full group-hover:scale-110 transition-transform">
-                    {info.icon}
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-medium text-slate-400 mb-1">{info.title}</h4>
-                    <p className="text-lg font-medium text-slate-100 group-hover:text-blue-400 transition-colors">{info.value}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
+            {contactInfo.map((info, index) => (
+              <motion.a
+                key={index}
+                href={info.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ y: -4, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 18 }}
+                className={`glass-card ${info.glowClass} flex items-center gap-5 p-5 cursor-pointer group`}
+              >
+                <div className="icon-box p-3 flex-shrink-0">
+                  {info.icon}
+                </div>
+                <div>
+                  <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">{info.title}</h4>
+                  <p className="text-lg font-semibold text-slate-100 group-hover:text-blue-300 transition-colors">
+                    {info.value}
+                  </p>
+                </div>
+              </motion.a>
+            ))}
 
-            <div className="pt-8">
-              <h4 className="text-lg font-medium text-slate-300 mb-4">সামাজিক যোগাযোগ মাধ্যম</h4>
-              <div className="flex gap-4">
+            {/* Social buttons */}
+            <div className="pt-6">
+              <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">সামাজিক যোগাযোগ মাধ্যম</h4>
+              <div className="flex gap-3 flex-wrap">
                 {socialLinks.map((social, index) => (
-                  <a
+                  <motion.a
                     key={index}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-3 rounded-full text-white transition-all transform hover:-translate-y-1 hover:shadow-lg ${social.color}`}
+                    whileHover={{ y: -5, scale: 1.08 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 18 }}
                     aria-label={social.name}
+                    className="p-3 rounded-2xl text-white transition-all"
+                    style={{
+                      background: social.bg,
+                      boxShadow: `0 4px 16px ${social.glow}, 0 1px 0 rgba(255,255,255,0.15) inset`,
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 8px 28px ${social.glow}, 0 1px 0 rgba(255,255,255,0.15) inset`)}
+                    onMouseLeave={e => (e.currentTarget.style.boxShadow = `0 4px 16px ${social.glow}, 0 1px 0 rgba(255,255,255,0.15) inset`)}
                   >
                     {social.icon}
-                  </a>
+                  </motion.a>
                 ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Contact Form Placeholder */}
+          {/* Right – message form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="glass-card p-8 md:p-10 relative">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/20 rounded-bl-full rounded-tr-2xl -z-10 blur-2xl" />
-              
-              <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2 text-slate-200">
+            <div className="glass-card card-glow-blue p-8 md:p-10">
+              <h3 className="text-2xl font-semibold mb-7 text-slate-200 flex items-center gap-2">
+                <Send size={20} className="text-blue-400" />
                 <span className="text-gradient">বার্তা পাঠান</span>
               </h3>
-              
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+
+              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-400 mb-2">আপনার নাম</label>
-                  <input 
-                    type="text" 
-                    id="name" 
-                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 text-slate-200 transition-all placeholder-slate-600"
+                  <label htmlFor="name" className="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">
+                    আপনার নাম
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all placeholder-slate-600 focus:outline-none focus:ring-2"
                     placeholder="আপনার নাম লিখুন"
+                    style={{
+                      background: "linear-gradient(135deg,#0f1629 0%,#0a0e1c 100%)",
+                      border: "1px solid rgba(255,255,255,0.07)",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.4) inset",
+                    }}
+                    onFocus={e => (e.currentTarget.style.borderColor = "rgba(99,102,241,0.5)")}
+                    onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)")}
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-400 mb-2">ইমেইল ঠিকানা</label>
-                  <input 
-                    type="email" 
-                    id="email" 
-                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 text-slate-200 transition-all placeholder-slate-600"
+                  <label htmlFor="email" className="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">
+                    ইমেইল ঠিকানা
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all placeholder-slate-600 focus:outline-none"
                     placeholder="আপনার ইমেইল লিখুন"
+                    style={{
+                      background: "linear-gradient(135deg,#0f1629 0%,#0a0e1c 100%)",
+                      border: "1px solid rgba(255,255,255,0.07)",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.4) inset",
+                    }}
+                    onFocus={e => (e.currentTarget.style.borderColor = "rgba(99,102,241,0.5)")}
+                    onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)")}
                   />
                 </div>
-                
+
                 <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-400 mb-2">আপনার বার্তা</label>
-                  <textarea 
-                    id="message" 
+                  <label htmlFor="message" className="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">
+                    আপনার বার্তা
+                  </label>
+                  <textarea
+                    id="message"
                     rows={4}
-                    className="w-full px-4 py-3 bg-slate-800/50 border border-slate-700/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 text-slate-200 transition-all resize-none placeholder-slate-600"
+                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all resize-none placeholder-slate-600 focus:outline-none"
                     placeholder="কী বলতে চান তা লিখুন..."
-                  ></textarea>
+                    style={{
+                      background: "linear-gradient(135deg,#0f1629 0%,#0a0e1c 100%)",
+                      border: "1px solid rgba(255,255,255,0.07)",
+                      boxShadow: "0 2px 8px rgba(0,0,0,0.4) inset",
+                    }}
+                    onFocus={e => (e.currentTarget.style.borderColor = "rgba(99,102,241,0.5)")}
+                    onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)")}
+                  />
                 </div>
-                
-                <button 
-                  type="button" 
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium text-lg transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] flex items-center justify-center gap-2 group"
+
+                <button
+                  type="button"
+                  className="w-full py-4 rounded-xl text-white font-semibold text-lg transition-all flex items-center justify-center gap-2 group"
+                  style={{
+                    background: "linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)",
+                    boxShadow: "0 0 25px rgba(79,70,229,0.4), 0 4px 15px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12) inset",
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 45px rgba(79,70,229,0.7), 0 8px 25px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.14) inset")}
+                  onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 25px rgba(79,70,229,0.4), 0 4px 15px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12) inset")}
                 >
-                  <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   বার্তা পাঠান
                 </button>
               </form>
