@@ -10,7 +10,7 @@ export default function HeroSection() {
       {/* Background decorations */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[120px] -z-10 animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px] -z-10 animate-pulse" style={{ animationDelay: "2s" }} />
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="text-center max-w-4xl mx-auto">
           <motion.div
@@ -43,9 +43,17 @@ export default function HeroSection() {
               sequence={[
                 "Software Requirements Analyst",
                 2000,
-                "ডিজিটাল ক্রিয়েটর",
+                "Social awareness and political analysis",
                 2000,
-                "পরিবর্তনের পথিক",
+                "Content Creator",
+                2000,
+                "Content Writer",
+                2000,
+                "Digital Marketer",
+                2000,
+                "Social Media Manager",
+                2000,
+                "Customer care manager",
                 2000,
               ]}
               wrapper="span"
@@ -65,7 +73,7 @@ export default function HeroSection() {
               href="#about"
               className="px-8 py-4 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium text-lg transition-all shadow-[0_0_20px_rgba(79,70,229,0.3)] hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] flex items-center gap-2 group"
             >
-              আমার সম্পর্কে 
+              আমার সম্পর্কে
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </a>
             <a
@@ -79,7 +87,7 @@ export default function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
