@@ -65,14 +65,14 @@ export default function AdminLogin() {
         className="w-full max-w-md relative z-10"
       >
         <div className="glass-card p-10 md:p-12 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden">
-          
+
           {/* Decorative Corner Glow */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/20 blur-3xl rounded-full" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-purple-500/20 blur-3xl rounded-full" />
 
           {/* Header */}
           <div className="text-center mb-10 relative z-10">
-            <motion.div 
+            <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", delay: 0.2 }}
@@ -87,7 +87,7 @@ export default function AdminLogin() {
           <form onSubmit={handleLogin} className="space-y-6 relative z-10">
             {/* Error Message */}
             {error && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm text-center"
