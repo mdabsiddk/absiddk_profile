@@ -15,5 +15,11 @@
 	"observability": {
 		"enabled": true
 	},
+	"kv_namespaces": [
+		{
+			"binding": "CONTENT_STORE",
+			"id": ""
+		}
+	],
 	"upload_source_maps": true
 }

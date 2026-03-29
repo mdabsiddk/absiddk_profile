@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 
-export default function LanguagesSection() {
+export default function LanguagesSection({ content }: { content?: any }) {
   const languages = [
     { name: "বাংলা",   level: "মাতৃভাষা (Native)",       percentage: 100, color: "from-emerald-400 to-green-500",   glow: "rgba(16,185,129,0.55)",  glowClass: "card-glow-green"  },
     { name: "English", level: "দক্ষ (Proficient)",         percentage: 85,  color: "from-blue-400 to-indigo-500",     glow: "rgba(59,130,246,0.55)",  glowClass: "card-glow-blue"   },

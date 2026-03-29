@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Code2, BookOpen, Layers, Zap } from "lucide-react";
 
-export default function SkillsSection() {
+export default function SkillsSection({ content }: { content?: any }) {
   const professionalSkills = [
     { name: "Software Requirements Analysis", level: 95, color: "from-blue-500 to-indigo-500", glow: "rgba(99,102,241,0.6)" },
     { name: "Requirements Documentation",     level: 90, color: "from-indigo-500 to-purple-500", glow: "rgba(168,85,247,0.55)" },

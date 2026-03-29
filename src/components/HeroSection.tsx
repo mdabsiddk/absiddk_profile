@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { ArrowRight, Download, Terminal } from "lucide-react";
 
-export default function HeroSection() {
+export default function HeroSection({ content }: { content?: any }) {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       {/* Background blobs */}
@@ -44,7 +44,7 @@ export default function HeroSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-gradient-gold drop-shadow-[0_0_40px_rgba(250,204,21,0.25)]">
-              মোঃ আবু বকর
+              {content?.title || "মোঃ আবু বকর"}
             </h1>
           </motion.div>
 

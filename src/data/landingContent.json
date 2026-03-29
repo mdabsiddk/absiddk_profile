@@ -1,0 +1,26 @@
+{
+  "hero": {
+    "title": "এ. বি. সিদ্দীক",
+    "subtitle": "Tech Enthusiast | Digital Creator",
+    "description": "Welcome to my digital space. Let's create something extraordinary together."
+  },
+  "about": {
+    "heading": "আমার সম্পর্কে",
+    "content": "আমি একজন টেকনোলজি এনথুসিয়াস্ট এবং ডিজিটাল ক্রিয়েটর। আমি সবসময় নতুন কিছু শিখতে এবং প্রযুক্তি বিষয়ক নতুন নতুন আইডিয়া নিয়ে কাজ করতে পছন্দ করি।"
+  },
+  "interests": {
+    "heading": "আগ্রহ ও অনুপ্রেরণা",
+    "philosophyQuote": {
+      "part1": "আপনি জীবনে যত বড় অর্জন বয়ে আনেন না কেন, কেউ আপনাকে মনে রাখবে না!",
+      "part2": "আপনার জীবনে বৃহৎ অর্জনের চেয়েও সুন্দর স্মৃতি অধিক মূল্যবান। তাই আপনার জীবনকে সেখানেই বিনিয়োগ করবেন, যেখানকার মুহূর্তগুলো আপনার অপেক্ষায় প্রহর গুনছে।",
+      "part3": "নিশ্চয়ই আপনি একক জীবনের প্রতিনিধিত্ব করছেন! এবং এতেই আপনার অস্তিত্বের চির সমাপ্তি ঘটবে!",
+      "authorName": "Md. Abu Bakar",
+      "authorSubName": "A B Siddk"
+    }
+  },
+  "contact": {
+    "heading": "যোগাযোগ",
+    "email": "mdabsiddk@gmail.com",
+    "facebook": "https://facebook.com/mdabsiddk"
+  }
+}

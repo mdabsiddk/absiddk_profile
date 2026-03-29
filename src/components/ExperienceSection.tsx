@@ -329,7 +329,7 @@ function ExpCard({ exp, index }: { exp: Experience; index: number }) {
 }
 
 /* ── Main section ── */
-export default function ExperienceSection() {
+export default function ExperienceSection({ content }: { content?: any }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   return (

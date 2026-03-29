@@ -3,13 +3,13 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Facebook, Instagram, Send, Linkedin } from "lucide-react";
 
-export default function ContactSection() {
+export default function ContactSection({ content }: { content?: any }) {
   const contactInfo = [
     {
       icon: <Mail className="text-blue-400" size={22} />,
       title: "ইমেইল",
-      value: "mdabsiddk2331@gmail.com",
-      link: "mailto:mdabsiddk2331@gmail.com",
+      value: content?.email || "mdabsiddk2331@gmail.com",
+      link: `mailto:${content?.email || "mdabsiddk2331@gmail.com"}`,
       glowClass: "card-glow-blue",
       accentColor: "#3b82f6",
     },
@@ -85,7 +85,7 @@ export default function ContactSection() {
             <div className="icon-box p-3">
               <Send className="text-blue-400" size={28} />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gradient">যোগাযোগ করুন</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient">{content?.heading || "যোগাযোগ করুন"}</h2>
           </div>
           <div className="w-24 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto rounded-full shadow-[0_0_12px_rgba(99,102,241,0.6)]" />
         </motion.div>
