@@ -24,7 +24,7 @@ export default function AdminLogin() {
         body: JSON.stringify({ email, password }),
       });
 
-      const data: { success?: boolean; message?: string } = await res.json();
+      const data: any = await res.json();
 
       if (res.ok && data.success) {
         // Redirect to admin dashboard
