@@ -1,186 +1,115 @@
-# Next.js Framework Starter
-ফাইল কাঠামো
-
-portfolio/
-├── app/
-│   ├── layout.tsx          ← মেটাডেটা, ফন্ট, থিম
-│   ├── page.tsx            ← সব সেকশন একত্রিত
-│   └── globals.css         ← CSS ভেরিয়েবল, অ্যানিমেশন
-├── components/
-│   ├── Navbar.tsx
-│   ├── HeroSection.tsx
-│   ├── AboutSection.tsx
-│   ├── SkillsSection.tsx
-│   ├── ExperienceSection.tsx
-│   ├── LanguagesSection.tsx
-│   ├── InterestsSection.tsx
-│   ├── PhilosophySection.tsx
-│   └── ContactSection.tsx
-└── public/
-    └── (assets)
-
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/next-starter-template)
-
-<!-- dash-content-start -->
-
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). It's deployed on Cloudflare Workers as a [static website](https://developers.cloudflare.com/workers/static-assets/).
-
-This template uses [OpenNext](https://opennext.js.org/) via the [OpenNext Cloudflare adapter](https://opennext.js.org/cloudflare), which works by taking the Next.js build output and transforming it, so that it can run in Cloudflare Workers.
-
-<!-- dash-content-end -->
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
-
-```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/next-starter-template
-```
-
-A live public deployment of this template is available at [https://next-starter-template.templates.workers.dev](https://next-starter-template.templates.workers.dev)
-
-## Getting Started
-
-First, run:
-
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
-```
-
-Then run the development server (using the package manager of your choice):
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Deploying To Production
-
-| Command                           | Action                                       |
-| :-------------------------------- | :------------------------------------------- |
-| `npm run build`                   | Build your production site                   |
-| `npm run preview`                 | Preview your build locally, before deploying |
-| `npm run build && npm run deploy` | Deploy your production site to Cloudflare    |
-| `npm wrangler tail`               | View real-time logs for all Workers          |
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+# এবি সিদ্দিক (AB Siddk) - পার্সোনাল পোর্টফোলিও প্রজেক্ট
+এই ডকুমেন্টটি প্রজেক্টের "Master Context" হিসেবে ডিজাইন করা হয়েছে। এআই এজেন্ট (AI Agent) বা কোনো ডেভেলপার এই প্রজেক্টে কাজ করার পূর্বে এই ডকুমেন্টটি পড়লে পুরো সাইটের আর্কিটেকচার, ডিজাইন দর্শন এবং কাজের ফ্লো সম্পর্কে একটি স্পষ্ট ধারণা পাবেন।
 
 ---
 
-## 🏷️ Floating Label Input System
+## 🤖 AI Agent & Developer Context: Core Rules
+এআই এজেন্ট বা ডেভেলপারদের জন্য কোডবেস আপডেট করার সময় মানতে হবে এমন কিছু মূল নিয়ম:
+1. **Framework:** এটি একটি **Next.js 16+ (App Router)** প্রজেক্ট। এর সাথে **Cloudflare Workers/Pages** রানটাইম ইন্টিগ্রেট করা আছে।
+2. **Styling:** **Tailwind CSS 4.0** (নতুন ইঞ্জিন) ব্যবহৃত হয়েছে। গ্লোবাল স্টাইলগুলো `src/app/globals.css`-এ সংরক্ষিত।
+3. **Animations:** UI ইলিমেন্টগুলোর ইন্টারেকশন এবং স্মুথ অ্যানিমেশনের জন্য **Framer Motion** (`<motion.div>`) ব্যবহার করা হয়।
+4. **Icons:** সর্বদা `lucide-react` (লাইন আইকন) এবং স্পেসিফিক ব্র্যান্ডগুলোর জন্য `react-icons/fa` (যেমন: FaGithub, FaFacebook) ব্যবহার করতে হবে।
 
-সাইটের প্রতিটি ইনপুট ফিল্ডে **floating label animation** চালু আছে।  
-ইনপুটে ক্লিক করলে label টি smooth CSS transition-এ উপরে উঠে যায় এবং indigo রঙ ধারণ করে।
+---
 
-### কীভাবে কাজ করে
+## 📂 ফাইল কাঠামো (File Structure)
+নতুন ফিচার যোগ বা আপডেট করার সময় ফাইলগুলো কোথায় রাখতে হবে তার একটি পূর্ণাঙ্গ ম্যাপ:
 
-**CSS** (`src/app/globals.css`) — `.floating-field` utility class-এ সব animation সংজ্ঞায়িত।  
-**React** — প্রতিটি ফাইলে একটি local `FloatingField` component আছে যা `useState` দিয়ে `isFocused` ও `hasValue` track করে এবং wrapper-এ CSS class toggle করে।
-
-### নতুন ইনপুট ফিল্ড যোগ করার নিয়ম
-
-**ধাপ ১** — ফাইলের শীর্ষে `FloatingField` component কপি করুন (অথবা বিদ্যমান ফাইলে ইতোমধ্যে আছে):
-
-```tsx
-function FloatingField({
-  label,
-  isTextarea = false,
-  hasIcon = false,
-  children,
-}: {
-  label: string;
-  isTextarea?: boolean;
-  hasIcon?: boolean;
-  children: ReactNode;
-}) {
-  const [isFocused, setIsFocused] = useState(false);
-  const [hasValue,  setHasValue]  = useState(false);
-
-  const wrapperClass = [
-    "floating-field",
-    isTextarea ? "is-textarea" : "",
-    hasIcon    ? "has-icon"    : "",
-    isFocused  ? "is-focused"  : "",
-    hasValue   ? "has-value"   : "",
-  ].filter(Boolean).join(" ");
-
-  return (
-    <div
-      className={wrapperClass}
-      onFocus={() => setIsFocused(true)}
-      onBlur={(e) => {
-        setIsFocused(false);
-        setHasValue((e.target as HTMLInputElement | HTMLTextAreaElement).value.length > 0);
-      }}
-      onChange={(e) => {
-        setHasValue((e.target as HTMLInputElement | HTMLTextAreaElement).value.length > 0);
-      }}
-    >
-      <label>{label}</label>
-      {children}
-    </div>
-  );
-}
+```text
+portfolio/
+├── public/                     ← প্রজেক্টের স্ট্যাটিক ফাইলসমূহ (ছবি, আইকন ইত্যাদি)
+├── src/
+│   ├── app/                    # 📌 App Router Navigation
+│   │   ├── admin/
+│   │   │   ├── login/
+│   │   │   │   └── page.tsx    ← অ্যাডমিন লগিন পেইজ
+│   │   │   ├── layout.tsx      ← অ্যাডমিন ড্যাশবোর্ডের লেআউট
+│   │   │   └── page.tsx        ← অ্যাডমিন ড্যাশবোর্ডের মূল ইন্টারফেস
+│   │   ├── api/                # 📌 API Routes (Backend)
+│   │   │   ├── auth/           ← অথেনটিকেশন এপিআই (লগিন ভেরিফিকেশন)
+│   │   │   └── content/        ← Cloudflare KV থেকে ডেটা আদান-প্রদান এপিআই
+│   │   ├── globals.css         # 📌 গ্লোবাল সিএসএস, গ্লাস-মরফিজম ও থিম লজিক
+│   │   ├── layout.tsx          ← গ্লোবাল লেআউট, মেটাডেটা এবং ফন্ট (Inter, Hind Siliguri)
+│   │   └── page.tsx            ← ল্যান্ডিং পেইজ (সব কম্পোনেন্ট এখান থেকে রেন্ডার হয়)
+│   ├── components/             # 📌 UI/UX Modules 
+│   │   ├── Navbar.tsx          ← স্মার্ট নেভিগেশন বার
+│   │   ├── HeroSection.tsx     ← ইন্ট্রো ও টাইপিং অ্যানিমেশন
+│   │   ├── AboutSection.tsx    ← পরিচিতি ও লক্ষ্য
+│   │   ├── SkillsSection.tsx   ← কারিগরি দক্ষতা
+│   │   ├── ExperienceSection.tsx
+│   │   ├── LanguagesSection.tsx
+│   │   ├── InterestsSection.tsx
+│   │   ├── ContactSection.tsx  ← মেসেজ ফর্ম ও সোশ্যাল লিংকস
+│   │   └── Footer.tsx          
+│   ├── data/                   # 📌 Fallback Data
+│   │   └── landingContent.json ← ডিফল্ট ডেটা (যখন কেভি ডেটাবেস কানেক্টেড থাকে না)
+│   └── middleware.ts           ← প্রটেক্টেড রাউটগুলোর সিকিউরিটি (Admin routing)
+├── open-next.config.ts         ← ওপেন-নেক্সট (Cloudflare Deploy adapter)
+├── package.json                ← ডিপেন্ডেন্সি লিস্ট
+├── tsconfig.json               ← টাইপস্ক্রিপ্ট কনফিগ
+└── wrangler.jsonc              ← Cloudflare Workers/KV কনফিগারেশন
 ```
 
-**ধাপ ২** — যেকোনো `<input>` বা `<textarea>` কে `<FloatingField>` দিয়ে wrap করুন।  
-`placeholder` দেওয়ার **দরকার নেই** — `label` prop-ই placeholder হিসেবে কাজ করবে:
+---
 
+## 🗃️ ডেটা ফ্লো ও স্টেট ম্যানেজমেন্ট (Data Flow)
+1. **Cloudflare KV (Key-Value):** ওয়েবসাইটের ডায়নামিক ডেটা (টেক্সট, সাবটাইটেল, স্কিলস লিস্ট) Cloudflare KV স্টোরেজ (`CONTENT_STORE`) এ সেভ করা থাকে। 
+2. **ডায়নামিক রেন্ডারিং:** `src/app/page.tsx`-এ `getCloudflareContext()` ব্যবহার করে সার্ভার-সাইড থেকে সরাসরি KV থেকে ডেটা ফেস করে কম্পোনেন্টগুলোতে প্রপস (`content={content.hero}`) আকারে পাস করা হয়।
+3. **লোকাল ফলব্যাক:** যদি KV স্টোরেজ অ্যাক্সেস করা না যায় (যেমন লোকাল ডেভেলপমেন্টে), তবে কোড স্বয়ংক্রিয়ভাবে `src/data/landingContent.json` থেকে ডেটা পড়ে।
+
+---
+
+## ✨ ডিজাইন প্যাটার্ন ও UI/UX গাইডলাইন
+নতুন কোনো পেইজ বা কম্পোনেন্ট বানালে অবশ্যই এই ডিজাইন ফিলোসফিগুলো অনুসরণ করতে হবে:
+
+### ১. Glassmorphism (গ্লাস-মরফিজম)
+সাইটের প্রতিটি কার্ড এবং সেকশন স্বচ্ছ কাঁচের মতো হবে।
+- **কিভাবে বানাবেন:** `globals.css` ফাইলে `glass-card`, `card-3d` নামে গ্লোবাল ক্লাস আছে। যেকোনো ডিপে এই ক্লাস ব্যবহার করলেই থ্রিডি শ্যাডো ও গ্লাস ইফেক্ট চলে আসবে।
+- **গ্লো-ইফেক্টস:** কালারফুল বর্ডারের জন্য `card-glow-blue`, `card-glow-purple`, `card-glow-green` ইত্যাদি ক্লাস ব্যবহার করতে হবে।
+
+### ২. Floating Label Input System
+কন্টাক্ট ফর্ম এবং লগিন ফর্মে একটি কাস্টম ফ্লোটিং ইনপুট লজিক ব্যবহার করা হয়েছে।
+- **কিভাবে বানাবেন:** যেকোনো ফর্ম ফিল্ড বানাতে হলে `<FloatingField>` নামের লোকাল কম্পোনেন্টটি ব্যবহার করতে হবে (দেখুন: `ContactSection.tsx`)।
 ```tsx
-{/* সাধারণ text/email/password input */}
 <FloatingField label="আপনার নাম">
-  <input type="text" id="my-input" className="..." style={...} />
-</FloatingField>
-
-{/* textarea */}
-<FloatingField label="আপনার বার্তা" isTextarea>
-  <textarea rows={4} id="my-textarea" className="..." style={...} />
-</FloatingField>
-
-{/* icon সহ input (যেমন admin login) */}
-<FloatingField label="Email Address" hasIcon>
-  <div className="relative group">
-    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none" style={{ zIndex: 2 }}>
-      <Mail className="h-5 w-5 text-slate-500" />
-    </div>
-    <input type="email" className="... pl-12" />
-  </div>
+  <input type="text" className="w-full ..." />
 </FloatingField>
 ```
 
-### Props সারসংক্ষেপ
+### ৩. টাইপোগ্রাফি (Typography)
+- বাংলা লেখার জন্য **'Hind Siliguri'** এবং ইংরেজির জন্য **'Inter'** ফন্ট গ্লোবালি সেট করা আছে।
+- হেডিংগুলোর কালার হাইলাইট করার জন্য `.text-gradient` বা `.text-gradient-gold` (globals.css এ ডিফাইন করা) ব্যবহার করুন।
 
-| Prop | Type | Default | কখন ব্যবহার করবেন |
-|------|------|---------|-------------------|
-| `label` | `string` | — | সবসময় — এটি floating label টেক্সট |
-| `isTextarea` | `boolean` | `false` | `<textarea>` হলে `true` |
-| `hasIcon` | `boolean` | `false` | input-এর বামে icon থাকলে `true` |
+---
 
-### CSS Class Reference
+## 🏗️ ডেভেলপমেন্ট গাইড: কীভাবে নতুন ফিচার আনবেন?
 
-| Class | কখন লাগে |
-|-------|-----------|
-| `.floating-field` | সবসময় (wrapper-এ) |
-| `.is-textarea` | textarea হলে |
-| `.has-icon` | বাম পাশে icon থাকলে |
-| `.is-focused` | input focus-এ থাকলে (JS-এ toggle) |
-| `.has-value` | input-এ কোনো value থাকলে (JS-এ toggle) |
+এই অংশটি ডেভেলপমেন্টের কাজকে অর্গানাইজড রাখতে সাহায্য করবে।
 
-> **নোট:** CSS সম্পূর্ণ `src/app/globals.css`-এ আছে।  
-> নতুন ফাইলে নতুন করে CSS লেখার দরকার নেই।
+### 🔹 নতুন কোনো সেকশন (Section) যোগ করতে চাইলে:
+1. `src/components/` ডিরেক্টরিতে আপনার নতুন সেকশনটি বানান (যেমন: `MyNewSection.tsx`)।
+2. কম্পোনেন্টির কনটেন্টগুলো হার্ডকোড না করে `content?` প্রপস থেকে রিসিভ করার ব্যবস্থা রাখুন।
+3. `src/app/page.tsx` এ কম্পোনেন্টটি ইমপোর্ট করুন এবং `<SectionDivider />` দিয়ে আগের সেকশন থেকে আলাদা করুন।
+
+### 🔹 নতুন কোনো পেইজ (Route) বানাতে চাইলে:
+1. `src/app/` ডিরেক্টরির ভেতরে আপনার রাউটের নামে ফোল্ডার তৈরি করুন (যেমন: `src/app/blog/page.tsx`)।
+2. ডিজাইন লজিক ঠিক রাখতে গ্লোবাল `layout.tsx` এর ভেতর দিয়ে সব ইন্টারফেস পাস করুন।
+
+### 🔹 ডাটাবেস ফিল্ড অ্যাড করতে চাইলে:
+1. প্রথমে ডেটার স্ট্রাকচারটি `src/data/landingContent.json` ফাইলে আপডেট করুন।
+2. এরপর অ্যাডমিন প্যানেল (`src/app/admin`) থেকে সেই ফিল্ডটি এডিট করার জন্য UI যুক্ত করুন।
+3. অবশেষে API রাউটের মাধ্যমে সেই ডাটা Cloudflare KV তে সেভ করার লজিক ঠিক করুন।
+
+---
+
+## ☁️ প্রোডাকশন ও ডেপ্লয়মেন্ট গাইড
+
+ডেভেলপমেন্ট শেষে নিচের স্ক্রিপ্টগুলো দিয়ে সাইটটি লাইভ করা বা চেক করা যাবে:
+
+- **লোকাল প্রজেক্ট রান:** `npm run dev` (অথবা Cloudflare এনভায়ারমেন্ট সহ ডিবগিংয়ের জন্য `npm run preview`)
+- **প্রোডাকশন বিল্ড:** `npm run build`
+- **Cloudflare তে ডেপ্লয়:** প্রজেক্টে OpenNext কনফিগার করা আছে। `npm run deploy` কমান্ডের মাধ্যমে সরাসরি Cloudflare Workers এ সাইটটি আপডেট হবে।
+
+> **নোট (AI Agent এর উদ্দেশ্যে):** যদি কোনো বাগ ফিক্স, ফাইল মডিফিকেশন বা নতুন কোড ইমপ্লিমেন্টেশনের কাজ আসে, প্রথমে এখানকার **ফাইল কাঠামো** ও **ডিজাইন গাইডলাইন** ভালো করে যাচাই করে তবেই ইমপ্লিমেন্টেশনে আগাবেন।
+
+© ২০২৬ মোঃ আবু বকর (AB Siddk). সর্বস্বত্ব সংরক্ষিত।
