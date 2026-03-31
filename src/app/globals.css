@@ -269,6 +269,80 @@
     pointer-events: none;
     z-index: 0;
   }
+
+  /* ──────────────────────────────────────────
+     Floating Label Input
+     ──────────────────────────────────────────
+     ব্যবহার: input বা textarea-কে .floating-field
+     wrapper-এর ভেতরে রাখুন এবং label-টি input-এর
+     আগে রাখুন। JS-এ isFocused ও hasValue state
+     দিয়ে .is-focused ও .has-value class toggle করুন।
+     textarea হলে wrapper-এ .is-textarea class যোগ করুন।
+  ────────────────────────────────────────── */
+  .floating-field {
+    position: relative;
+    padding-top: 10px;         /* label-এর জায়গা তৈরি */
+  }
+
+  .floating-field label {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #64748b;            /* slate-500 */
+    pointer-events: none;
+    transition:
+      top 0.25s ease,
+      font-size 0.25s ease,
+      color 0.25s ease,
+      transform 0.25s ease,
+      letter-spacing 0.25s ease;
+    padding: 0 5px;
+    line-height: 1;
+    white-space: nowrap;
+    z-index: 1;
+  }
+
+  /* textarea: label শুরু উপর থেকে */
+  .floating-field.is-textarea label {
+    top: 22px;
+    transform: none;
+  }
+
+  /* ── icon আছে এমন field-এ label একটু ডানে ── */
+  .floating-field.has-icon label {
+    left: 44px;
+  }
+  .floating-field.has-icon.is-focused label,
+  .floating-field.has-icon.has-value label {
+    left: 12px;
+  }
+
+  /* ── Focused বা Value আছে: label উপরে ── */
+  .floating-field.is-focused label,
+  .floating-field.has-value label {
+    top: 10px;
+    transform: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #818cf8;            /* indigo-400 – site accent */
+    /* input border-এর উপর দিয়ে "কাটা" দেখানোর জন্য */
+    background: linear-gradient(180deg, #0f1629 55%, transparent 100%);
+  }
+
+  /* textarea focused/has-value */
+  .floating-field.is-textarea.is-focused label,
+  .floating-field.is-textarea.has-value label {
+    top: 10px;
+    transform: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #818cf8;
+    background: linear-gradient(180deg, #0f1629 55%, transparent 100%);
+  }
 }
 
 /* ──────────────────────────────────────────

@@ -80,3 +80,107 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+---
+
+## 🏷️ Floating Label Input System
+
+সাইটের প্রতিটি ইনপুট ফিল্ডে **floating label animation** চালু আছে।  
+ইনপুটে ক্লিক করলে label টি smooth CSS transition-এ উপরে উঠে যায় এবং indigo রঙ ধারণ করে।
+
+### কীভাবে কাজ করে
+
+**CSS** (`src/app/globals.css`) — `.floating-field` utility class-এ সব animation সংজ্ঞায়িত।  
+**React** — প্রতিটি ফাইলে একটি local `FloatingField` component আছে যা `useState` দিয়ে `isFocused` ও `hasValue` track করে এবং wrapper-এ CSS class toggle করে।
+
+### নতুন ইনপুট ফিল্ড যোগ করার নিয়ম
+
+**ধাপ ১** — ফাইলের শীর্ষে `FloatingField` component কপি করুন (অথবা বিদ্যমান ফাইলে ইতোমধ্যে আছে):
+
+```tsx
+function FloatingField({
+  label,
+  isTextarea = false,
+  hasIcon = false,
+  children,
+}: {
+  label: string;
+  isTextarea?: boolean;
+  hasIcon?: boolean;
+  children: ReactNode;
+}) {
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasValue,  setHasValue]  = useState(false);
+
+  const wrapperClass = [
+    "floating-field",
+    isTextarea ? "is-textarea" : "",
+    hasIcon    ? "has-icon"    : "",
+    isFocused  ? "is-focused"  : "",
+    hasValue   ? "has-value"   : "",
+  ].filter(Boolean).join(" ");
+
+  return (
+    <div
+      className={wrapperClass}
+      onFocus={() => setIsFocused(true)}
+      onBlur={(e) => {
+        setIsFocused(false);
+        setHasValue((e.target as HTMLInputElement | HTMLTextAreaElement).value.length > 0);
+      }}
+      onChange={(e) => {
+        setHasValue((e.target as HTMLInputElement | HTMLTextAreaElement).value.length > 0);
+      }}
+    >
+      <label>{label}</label>
+      {children}
+    </div>
+  );
+}
+```
+
+**ধাপ ২** — যেকোনো `<input>` বা `<textarea>` কে `<FloatingField>` দিয়ে wrap করুন।  
+`placeholder` দেওয়ার **দরকার নেই** — `label` prop-ই placeholder হিসেবে কাজ করবে:
+
+```tsx
+{/* সাধারণ text/email/password input */}
+<FloatingField label="আপনার নাম">
+  <input type="text" id="my-input" className="..." style={...} />
+</FloatingField>
+
+{/* textarea */}
+<FloatingField label="আপনার বার্তা" isTextarea>
+  <textarea rows={4} id="my-textarea" className="..." style={...} />
+</FloatingField>
+
+{/* icon সহ input (যেমন admin login) */}
+<FloatingField label="Email Address" hasIcon>
+  <div className="relative group">
+    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none" style={{ zIndex: 2 }}>
+      <Mail className="h-5 w-5 text-slate-500" />
+    </div>
+    <input type="email" className="... pl-12" />
+  </div>
+</FloatingField>
+```
+
+### Props সারসংক্ষেপ
+
+| Prop | Type | Default | কখন ব্যবহার করবেন |
+|------|------|---------|-------------------|
+| `label` | `string` | — | সবসময় — এটি floating label টেক্সট |
+| `isTextarea` | `boolean` | `false` | `<textarea>` হলে `true` |
+| `hasIcon` | `boolean` | `false` | input-এর বামে icon থাকলে `true` |
+
+### CSS Class Reference
+
+| Class | কখন লাগে |
+|-------|-----------|
+| `.floating-field` | সবসময় (wrapper-এ) |
+| `.is-textarea` | textarea হলে |
+| `.has-icon` | বাম পাশে icon থাকলে |
+| `.is-focused` | input focus-এ থাকলে (JS-এ toggle) |
+| `.has-value` | input-এ কোনো value থাকলে (JS-এ toggle) |
+
+> **নোট:** CSS সম্পূর্ণ `src/app/globals.css`-এ আছে।  
+> নতুন ফাইলে নতুন করে CSS লেখার দরকার নেই।

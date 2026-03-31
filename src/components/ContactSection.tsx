@@ -1,7 +1,53 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, ReactNode } from "react";
 import { Mail, Phone, MapPin, Facebook, Instagram, Send, Linkedin } from "lucide-react";
+
+/* ──────────────────────────────────────────
+   FloatingField — পুনর্ব্যবহারযোগ্য wrapper
+   ব্যবহার:
+     <FloatingField label="লেবেল" isTextarea={false}>
+       <input ... />
+     </FloatingField>
+   textarea হলে isTextarea={true} পাস করুন।
+────────────────────────────────────────── */
+function FloatingField({
+  label,
+  isTextarea = false,
+  children,
+}: {
+  label: string;
+  isTextarea?: boolean;
+  children: ReactNode;
+}) {
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasValue,  setHasValue]  = useState(false);
+
+  const wrapperClass = [
+    "floating-field",
+    isTextarea    ? "is-textarea" : "",
+    isFocused     ? "is-focused"  : "",
+    hasValue      ? "has-value"   : "",
+  ].filter(Boolean).join(" ");
+
+  return (
+    <div
+      className={wrapperClass}
+      onFocus={() => setIsFocused(true)}
+      onBlur={(e) => {
+        setIsFocused(false);
+        setHasValue((e.target as HTMLInputElement | HTMLTextAreaElement).value.length > 0);
+      }}
+      onChange={(e) => {
+        setHasValue((e.target as HTMLInputElement | HTMLTextAreaElement).value.length > 0);
+      }}
+    >
+      <label>{label}</label>
+      {children}
+    </div>
+  );
+}
 
 export default function ContactSection({ content }: { content?: any }) {
   const contactInfo = [
@@ -55,12 +101,26 @@ export default function ContactSection({ content }: { content?: any }) {
     },
   ];
 
+  /* shared inline styles for every input / textarea */
+  const fieldStyle = {
+    background: "linear-gradient(135deg,#0f1629 0%,#0a0e1c 100%)",
+    border: "1px solid rgba(255,255,255,0.07)",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.4) inset",
+  };
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e.currentTarget.style.borderColor = "rgba(99,102,241,0.5)";
+  };
+  const handleBlur  = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)";
+  };
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
       {/* top accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
       <div className="blob-purple" style={{ bottom: "15%", left: "0" }} />
-      <div className="blob-blue"   style={{ top: "15%", right: "0"  }} />
+      <div className="blob-blue"   style={{ top: "15%",  right: "0" }} />
 
       {/* grid bg */}
       <div
@@ -73,7 +133,7 @@ export default function ContactSection({ content }: { content?: any }) {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Heading */}
+        {/* ── Heading ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -85,13 +145,15 @@ export default function ContactSection({ content }: { content?: any }) {
             <div className="icon-box p-3">
               <Send className="text-blue-400" size={28} />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gradient">{content?.heading || "যোগাযোগ করুন"}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gradient">
+              {content?.heading || "যোগাযোগ করুন"}
+            </h2>
           </div>
           <div className="w-24 h-[2px] bg-gradient-to-r from-blue-400 to-indigo-500 mx-auto rounded-full shadow-[0_0_12px_rgba(99,102,241,0.6)]" />
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
-          {/* Left – contact info */}
+          {/* ── Left – contact info ── */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -115,11 +177,11 @@ export default function ContactSection({ content }: { content?: any }) {
                 transition={{ type: "spring", stiffness: 300, damping: 18 }}
                 className={`glass-card ${info.glowClass} flex items-center gap-5 p-5 cursor-pointer group`}
               >
-                <div className="icon-box p-3 flex-shrink-0">
-                  {info.icon}
-                </div>
+                <div className="icon-box p-3 flex-shrink-0">{info.icon}</div>
                 <div>
-                  <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">{info.title}</h4>
+                  <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">
+                    {info.title}
+                  </h4>
                   <p className="text-lg font-semibold text-slate-100 group-hover:text-blue-300 transition-colors">
                     {info.value}
                   </p>
@@ -129,7 +191,9 @@ export default function ContactSection({ content }: { content?: any }) {
 
             {/* Social buttons */}
             <div className="pt-6">
-              <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">সামাজিক যোগাযোগ মাধ্যম</h4>
+              <h4 className="text-sm font-semibold text-slate-400 uppercase tracking-widest mb-4">
+                সামাজিক যোগাযোগ মাধ্যম
+              </h4>
               <div className="flex gap-3 flex-wrap">
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -155,7 +219,7 @@ export default function ContactSection({ content }: { content?: any }) {
             </div>
           </motion.div>
 
-          {/* Right – message form */}
+          {/* ── Right – message form ── */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -168,63 +232,43 @@ export default function ContactSection({ content }: { content?: any }) {
                 <span className="text-gradient">বার্তা পাঠান</span>
               </h3>
 
-              <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                <div>
-                  <label htmlFor="name" className="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">
-                    আপনার নাম
-                  </label>
+              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+
+                {/* ── নাম ── */}
+                <FloatingField label="আপনার নাম">
                   <input
                     type="text"
-                    id="name"
-                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all placeholder-slate-600 focus:outline-none focus:ring-2"
-                    placeholder="আপনার নাম লিখুন"
-                    style={{
-                      background: "linear-gradient(135deg,#0f1629 0%,#0a0e1c 100%)",
-                      border: "1px solid rgba(255,255,255,0.07)",
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.4) inset",
-                    }}
-                    onFocus={e => (e.currentTarget.style.borderColor = "rgba(99,102,241,0.5)")}
-                    onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)")}
+                    id="contact-name"
+                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all focus:outline-none focus:ring-2"
+                    style={fieldStyle}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                   />
-                </div>
+                </FloatingField>
 
-                <div>
-                  <label htmlFor="email" className="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">
-                    ইমেইল ঠিকানা
-                  </label>
+                {/* ── ইমেইল ── */}
+                <FloatingField label="ইমেইল ঠিকানা">
                   <input
                     type="email"
-                    id="email"
-                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all placeholder-slate-600 focus:outline-none"
-                    placeholder="আপনার ইমেইল লিখুন"
-                    style={{
-                      background: "linear-gradient(135deg,#0f1629 0%,#0a0e1c 100%)",
-                      border: "1px solid rgba(255,255,255,0.07)",
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.4) inset",
-                    }}
-                    onFocus={e => (e.currentTarget.style.borderColor = "rgba(99,102,241,0.5)")}
-                    onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)")}
+                    id="contact-email"
+                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all focus:outline-none"
+                    style={fieldStyle}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                   />
-                </div>
+                </FloatingField>
 
-                <div>
-                  <label htmlFor="message" className="block text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">
-                    আপনার বার্তা
-                  </label>
+                {/* ── বার্তা ── */}
+                <FloatingField label="আপনার বার্তা লিখুন..." isTextarea>
                   <textarea
-                    id="message"
+                    id="contact-message"
                     rows={4}
-                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all resize-none placeholder-slate-600 focus:outline-none"
-                    placeholder="কী বলতে চান তা লিখুন..."
-                    style={{
-                      background: "linear-gradient(135deg,#0f1629 0%,#0a0e1c 100%)",
-                      border: "1px solid rgba(255,255,255,0.07)",
-                      boxShadow: "0 2px 8px rgba(0,0,0,0.4) inset",
-                    }}
-                    onFocus={e => (e.currentTarget.style.borderColor = "rgba(99,102,241,0.5)")}
-                    onBlur={e  => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)")}
+                    className="w-full px-4 py-3 rounded-xl text-slate-200 transition-all resize-none focus:outline-none"
+                    style={fieldStyle}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
                   />
-                </div>
+                </FloatingField>
 
                 <button
                   type="button"

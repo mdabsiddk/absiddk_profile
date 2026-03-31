@@ -1,16 +1,58 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { Lock, Mail, ArrowRight, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+/* ──────────────────────────────────────────
+   FloatingField — icon সহ floating label wrapper
+   has-icon prop দিলে label icon-এর পরে শুরু হবে
+   এবং focus হলে বাম দিকে সরে ছোট হয়ে উপরে যাবে।
+────────────────────────────────────────── */
+function FloatingField({
+  label,
+  hasIcon = false,
+  children,
+}: {
+  label: string;
+  hasIcon?: boolean;
+  children: ReactNode;
+}) {
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasValue,  setHasValue]  = useState(false);
+
+  const wrapperClass = [
+    "floating-field",
+    hasIcon   ? "has-icon"   : "",
+    isFocused ? "is-focused" : "",
+    hasValue  ? "has-value"  : "",
+  ].filter(Boolean).join(" ");
+
+  return (
+    <div
+      className={wrapperClass}
+      onFocus={() => setIsFocused(true)}
+      onBlur={(e) => {
+        setIsFocused(false);
+        setHasValue((e.target as HTMLInputElement).value.length > 0);
+      }}
+      onChange={(e) => {
+        setHasValue((e.target as HTMLInputElement).value.length > 0);
+      }}
+    >
+      <label>{label}</label>
+      {children}
+    </div>
+  );
+}
+
 export default function AdminLogin() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [loading,  setLoading]  = useState(false);
+  const [error,    setError]    = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,9 +69,8 @@ export default function AdminLogin() {
       const data: any = await res.json();
 
       if (res.ok && data.success) {
-        // Redirect to admin dashboard
         router.push("/admin");
-        router.refresh(); // Refresh to catch new cookies in layout/middleware
+        router.refresh();
       } else {
         setError(data.message || "Login failed. Please check your credentials.");
       }
@@ -40,14 +81,15 @@ export default function AdminLogin() {
     }
   };
 
+  const sharedInputClass =
+    "w-full bg-slate-900/50 border border-slate-700 rounded-xl pl-12 pr-4 py-3.5 text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium";
+
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-slate-950 p-4">
-      {/* Background aesthetics matching the site theme */}
+      {/* Background aesthetics */}
       <div
         className="absolute inset-0 z-0 opacity-20"
-        style={{
-          background: "radial-gradient(circle at 50% 50%, #6366f1 0%, transparent 50%)",
-        }}
+        style={{ background: "radial-gradient(circle at 50% 50%, #6366f1 0%, transparent 50%)" }}
       />
       <div
         className="absolute inset-0 z-0"
@@ -96,45 +138,39 @@ export default function AdminLogin() {
               </motion.div>
             )}
 
-            {/* Email Field */}
-            <div className="space-y-2">
-              <label className="text-xs font-medium text-slate-400 uppercase tracking-wider pl-1">
-                Email Address
-              </label>
+            {/* ── Email Field ── */}
+            <FloatingField label="Email Address" hasIcon>
               <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none" style={{ zIndex: 2 }}>
                   <Mail className="h-5 w-5 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
                 </div>
                 <input
                   type="email"
+                  id="admin-email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-slate-900/50 border border-slate-700 rounded-xl pl-12 pr-4 py-3.5 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium"
-                  placeholder="admin@example.com"
+                  className={sharedInputClass}
                   required
                 />
               </div>
-            </div>
+            </FloatingField>
 
-            {/* Password Field */}
-            <div className="space-y-2">
-              <label className="text-xs font-medium text-slate-400 uppercase tracking-wider pl-1">
-                Password
-              </label>
+            {/* ── Password Field ── */}
+            <FloatingField label="Password" hasIcon>
               <div className="relative group">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none" style={{ zIndex: 2 }}>
                   <Lock className="h-5 w-5 text-slate-500 group-focus-within:text-indigo-400 transition-colors" />
                 </div>
                 <input
                   type="password"
+                  id="admin-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-900/50 border border-slate-700 rounded-xl pl-12 pr-4 py-3.5 text-slate-200 placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all font-medium"
-                  placeholder="••••••••"
+                  className={sharedInputClass}
                   required
                 />
               </div>
-            </div>
+            </FloatingField>
 
             {/* Submit Button */}
             <button
