@@ -1,7 +1,6 @@
 "use client";
 
-import { Terminal } from "lucide-react";
-import { FaGithub, FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
+import { Terminal, Github, Linkedin, Facebook, Instagram } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -15,10 +14,10 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { icon: <FaGithub size={16} />, href: "https://github.com/mdabsiddk",             glow: "rgba(255,255,255,0.4)", bg: "linear-gradient(135deg,#333333,#000000)" },
-    { icon: <FaLinkedin size={16} />, href: "https://www.linkedin.com/in/absiddk",        glow: "rgba(10,102,194,0.6)",  bg: "linear-gradient(135deg,#0a66c2,#0078b4)" },
-    { icon: <FaFacebook size={16} />, href: "https://www.facebook.com/mdabubakarpage/",   glow: "rgba(24,119,242,0.6)",  bg: "linear-gradient(135deg,#1877f2,#166fe5)" },
-    { icon: <FaInstagram size={16} />, href: "https://www.instagram.com/a.siddk",         glow: "rgba(225,48,108,0.55)", bg: "linear-gradient(135deg,#e1306c,#833ab4)" },
+    { icon: <Github size={16} />, href: "https://github.com/mdabsiddk",             glow: "rgba(255,255,255,0.4)", bg: "linear-gradient(135deg,#333333,#000000)" },
+    { icon: <Linkedin size={16} />, href: "https://www.linkedin.com/in/absiddk",        glow: "rgba(10,102,194,0.6)",  bg: "linear-gradient(135deg,#0a66c2,#0078b4)" },
+    { icon: <Facebook size={16} />, href: "https://www.facebook.com/mdabubakarpage/",   glow: "rgba(24,119,242,0.6)",  bg: "linear-gradient(135deg,#1877f2,#166fe5)" },
+    { icon: <Instagram size={16} />, href: "https://www.instagram.com/a.siddk",         glow: "rgba(225,48,108,0.55)", bg: "linear-gradient(135deg,#e1306c,#833ab4)" },
   ];
 
   return (

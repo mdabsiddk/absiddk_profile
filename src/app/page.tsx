@@ -7,6 +7,7 @@ import LanguagesSection from "@/components/LanguagesSection";
 import InterestsSection from "@/components/InterestsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import Experience from "@/components/Experience";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import fs from "fs";
 import path from "path";
@@ -66,6 +67,7 @@ export default async function Home() {
     >
       <Navbar />
       <HeroSection content={content?.hero} />
+      <Experience />
 
       <SectionDivider color="rgba(59,130,246,0.35)" />
       <AboutSection content={content?.about} />

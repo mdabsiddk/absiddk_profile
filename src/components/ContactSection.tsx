@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, ReactNode } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { FaGithub, FaLinkedin, FaFacebook, FaInstagram } from "react-icons/fa";
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Facebook, Instagram } from "lucide-react";
 
 /* ──────────────────────────────────────────
    FloatingField — পুনর্ব্যবহারযোগ্য wrapper
@@ -80,28 +79,28 @@ export default function ContactSection({ content }: { content?: any }) {
 
   const socialLinks = [
     {
-      icon: <FaGithub size={22} />,
+      icon: <Github size={22} />,
       name: "GitHub",
       href: "https://github.com/mdabsiddk",
       bg: "linear-gradient(135deg,#333333,#000000)",
       glow: "rgba(255,255,255,0.4)",
     },
     {
-      icon: <FaLinkedin size={22} />,
+      icon: <Linkedin size={22} />,
       name: "LinkedIn",
       href: "https://www.linkedin.com/in/absiddk",
       bg: "linear-gradient(135deg,#0a66c2,#0077b5)",
       glow: "rgba(10,102,194,0.6)",
     },
     {
-      icon: <FaFacebook size={22} />,
+      icon: <Facebook size={22} />,
       name: "Facebook",
       href: "https://www.facebook.com/mdabubakarpage/",
       bg: "linear-gradient(135deg,#1877f2,#166fe5)",
       glow: "rgba(24,119,242,0.6)",
     },
     {
-      icon: <FaInstagram size={22} />,
+      icon: <Instagram size={22} />,
       name: "Instagram",
       href: "https://www.instagram.com/a.siddk",
       bg: "linear-gradient(135deg,#e1306c,#c13584,#833ab4)",
