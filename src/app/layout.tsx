@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   description: "Personal portfolio of Md. Abu Bakar (AB Siddk) - Software Requirements Analyst and Digital Creator",
 };
 
+import Clarity from "@/components/Clarity";
+import CookieConsent from "@/components/CookieConsent";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,6 +31,8 @@ export default function RootLayout({
       <body
         className={`${hindSiliguri.variable} ${inter.variable} font-hind antialiased bg-slate-950 text-slate-50`}
       >
+        <Clarity />
+        <CookieConsent />
         {children}
       </body>
     </html>

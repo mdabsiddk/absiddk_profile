@@ -12,6 +12,7 @@
 		"publish": true
 	},
 	"dependencies": {
+		"@microsoft/clarity": "^1.0.2",
 		"@opennextjs/cloudflare": "^1.18.0",
 		"framer-motion": "^12.36.0",
 		"lucide-react": "^0.577.0",

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState, ReactNode } from "react";
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Facebook, Instagram } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Github, Linkedin, Facebook, Instagram, Check } from "lucide-react";
 
 /* ──────────────────────────────────────────
    FloatingField — পুনর্ব্যবহারযোগ্য wrapper
@@ -122,6 +122,31 @@ export default function ContactSection({ content }: { content?: any }) {
     e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)";
   };
 
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("submitting");
+
+    // Simulate form submission
+    setTimeout(() => {
+      // ── Clarity Custom Event ──
+      import("@microsoft/clarity").then((ClarityModule) => {
+        const c = (ClarityModule as any).default || (ClarityModule as any).clarity;
+        if (c && typeof c.event === 'function') {
+          c.event("contact_form_submitted");
+        }
+      });
+
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      
+      // Reset status after 3 seconds
+      setTimeout(() => setStatus("idle"), 3000);
+    }, 1500);
+  };
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
       {/* top accent line */}
@@ -233,13 +258,15 @@ export default function ContactSection({ content }: { content?: any }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="glass-card card-glow-blue p-8 md:p-10">
+            <div className={`glass-card card-glow-blue p-8 md:p-10 transition-all ${status === 'success' ? 'scale-[1.02] border-blue-400/50' : ''}`}>
               <h3 className="text-2xl font-semibold mb-7 text-slate-200 flex items-center gap-2">
                 <Send size={20} className="text-blue-400" />
-                <span className="text-gradient">বার্তা পাঠান</span>
+                <span className="text-gradient">
+                  {status === "success" ? "বার্তা সফলভাবে পাঠানো হয়েছে!" : "বার্তা পাঠান"}
+                </span>
               </h3>
 
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-6" onSubmit={handleSubmit}>
 
                 {/* ── নাম ── */}
                 <FloatingField label="আপনার নাম">
@@ -278,17 +305,44 @@ export default function ContactSection({ content }: { content?: any }) {
                 </FloatingField>
 
                 <button
-                  type="button"
-                  className="w-full py-4 rounded-xl text-white font-semibold text-lg transition-all flex items-center justify-center gap-2 group"
+                  type="submit"
+                  disabled={status !== "idle"}
+                  className="w-full py-4 rounded-xl text-white font-semibold text-lg transition-all flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
                   style={{
-                    background: "linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)",
-                    boxShadow: "0 0 25px rgba(79,70,229,0.4), 0 4px 15px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12) inset",
+                    background: status === "success" 
+                      ? "linear-gradient(135deg, #10b981 0%, #059669 100%)" 
+                      : "linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)",
+                    boxShadow: status === "success"
+                      ? "0 0 25px rgba(16,185,129,0.4), 0 4px 15px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12) inset"
+                      : "0 0 25px rgba(79,70,229,0.4), 0 4px 15px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12) inset",
                   }}
-                  onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 45px rgba(79,70,229,0.7), 0 8px 25px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.14) inset")}
-                  onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 25px rgba(79,70,229,0.4), 0 4px 15px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12) inset")}
+                  onMouseEnter={e => {
+                    if (status === "idle") {
+                      e.currentTarget.style.boxShadow = "0 0 45px rgba(79,70,229,0.7), 0 8px 25px rgba(0,0,0,0.6), 0 1px 0 rgba(255,255,255,0.14) inset";
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (status === "idle") {
+                      e.currentTarget.style.boxShadow = "0 0 25px rgba(79,70,229,0.4), 0 4px 15px rgba(0,0,0,0.5), 0 1px 0 rgba(255,255,255,0.12) inset";
+                    }
+                  }}
                 >
-                  <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  বার্তা পাঠান
+                  {status === "submitting" ? (
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      পাঠানো হচ্ছে...
+                    </div>
+                  ) : status === "success" ? (
+                    <div className="flex items-center gap-2">
+                       <Check size={20} />
+                       সফলভাবে পাঠানো হয়েছে
+                    </div>
+                  ) : (
+                    <>
+                      <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      বার্তা পাঠান
+                    </>
+                  )}
                 </button>
               </form>
             </div>
