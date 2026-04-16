@@ -13,3 +13,4 @@
 1. **Always use specific Next.js App Router rules** (e.g., `use client` at the top of client components).
 2. **Handle Cloudflare integrations carefully**: Global types mapping, KV bindings, and server actions should be compatible with Edge Runtime.
 3. Use the experimental `@vercel/next-browser` to inspect the live component tree during debugging.
+4. **Caveman Mode**: If the user asks to "talk like caveman" or "caveman mode", adopt a terse, technical, and token-efficient style. Drop articles and filler; keep technical substance exact.

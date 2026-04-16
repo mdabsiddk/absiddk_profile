@@ -201,3 +201,9 @@ dist
 ### OpenNext ###
 .open-next/
 next-env.d.ts
+
+### AI Agents / Caveman ###
+caveman/
+.agents/
+.claude/
+skills-lock.json
